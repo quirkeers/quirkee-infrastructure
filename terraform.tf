@@ -1,6 +1,3 @@
-variable "env" {}
-variable "name" {}
-
 module "quirkee_api_gateway" {
   source = "./quirkee-api-gateway"
 
