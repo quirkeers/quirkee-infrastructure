@@ -14,8 +14,8 @@ module "quirkee_lambda" {
 
   api_gateway_api_execution_arn = module.quirkee_api_gateway.api_gateway_api_execution_arn
 
-  handler_path = "./lib/index.js"
-  node_project_path = "./"
+  handler_path = var.handler_path
+  node_project_path = var.node_project_path
   s3_bucket = module.quirkee_lambda_s3_bucket.app_bucket_id
 }
 
