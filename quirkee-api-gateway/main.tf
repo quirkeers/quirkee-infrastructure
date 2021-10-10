@@ -10,8 +10,6 @@ module "api_gateway" {
     allow_origins = ["*"]
   }
 
-  create_api_domain_name = true
-
   integrations = {
     "ANY /" = {
       lambda_arn             = var.lambda_arn
