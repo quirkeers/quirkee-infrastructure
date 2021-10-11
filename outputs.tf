@@ -2,6 +2,10 @@ output "api_gateway_api_execution_arn" {
   value = module.quirkee_api_gateway.api_gateway_api_execution_arn
 }
 
+output "api_gateway_api_endpoint" {
+  value = module.quirkee_api_gateway.api_gateway_api_endpoint
+}
+
 output "lambda_arn" {
   value = module.quirkee_lambda.lambda_arn
 }
