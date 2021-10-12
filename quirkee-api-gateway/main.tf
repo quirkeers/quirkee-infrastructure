@@ -26,11 +26,13 @@ module "api_gateway" {
   domain_name_certificate_arn = module.acm.acm_certificate_arn
 
   integrations = {
-    "ANY /${var.name}" = {
+    "ANY /" = {
       lambda_arn             = var.lambda_arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 12000
     }
+
+"$default" = { lambda_arn = var.lambda_arn }
   }
 }
 
@@ -56,5 +58,5 @@ module "acm" {
 
   domain_name               = local.domain_name
   zone_id                   = data.aws_route53_zone.this.id
-  subject_alternative_names = ["${local.subdomain}.${local.domain_name}"]
+  subject_alternative_names = ["${local.subdomain}-${var.name}.${local.domain_name}"]
 }
