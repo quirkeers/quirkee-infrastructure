@@ -1,6 +1,6 @@
 variable "subdomain_map" {
   default = {
-    "production": "www",
+    "production": "prod",
     "development": "dev"
   }
 }
@@ -42,7 +42,7 @@ data "aws_route53_zone" "this" {
 
 resource "aws_route53_record" "api" {
   zone_id = data.aws_route53_zone.this.zone_id
-  name    = local.subdomain
+  name    = "${local.subdomain}-${var.env}"
   type    = "A"
 
   alias {
