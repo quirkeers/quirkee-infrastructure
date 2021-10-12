@@ -42,7 +42,7 @@ data "aws_route53_zone" "this" {
 
 resource "aws_route53_record" "api" {
   zone_id = data.aws_route53_zone.this.zone_id
-  name    = "${local.subdomain}-${var.env}"
+  name    = "${local.subdomain}-${var.name}"
   type    = "A"
 
   alias {
