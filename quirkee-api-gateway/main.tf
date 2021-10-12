@@ -22,7 +22,7 @@ module "api_gateway" {
     allow_origins = ["*"]
   }
 
-  domain_name = local.domain_name
+  domain_name = "${local.subdomain}-${var.name}.${local.domain_name}"
   domain_name_certificate_arn = module.acm.acm_certificate_arn
 
   integrations = {
