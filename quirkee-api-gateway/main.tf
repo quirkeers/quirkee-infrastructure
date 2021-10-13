@@ -27,7 +27,13 @@ module "api_gateway" {
 
   integrations = {
 
-    "ANY /*" = {
+    "ANY /" = {
+      lambda_arn             = var.lambda_arn
+      payload_format_version = "1.0"
+      timeout_milliseconds   = 12000
+    }
+
+    "ANY /api/{proxy+}" = {
       lambda_arn             = var.lambda_arn
       payload_format_version = "1.0"
       timeout_milliseconds   = 12000
