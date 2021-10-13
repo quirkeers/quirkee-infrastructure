@@ -26,9 +26,10 @@ module "api_gateway" {
   domain_name_certificate_arn = module.acm.acm_certificate_arn
 
   integrations = {
+
     "ANY /" = {
       lambda_arn             = var.lambda_arn
-      payload_format_version = "2.0"
+      payload_format_version = "1.0"
       timeout_milliseconds   = 12000
     }
 
