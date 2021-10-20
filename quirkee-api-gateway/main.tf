@@ -1,7 +1,7 @@
 variable "subdomain_map" {
   default = {
-    "production": "prod",
-    "development": "dev"
+    "production": "",
+    "development": "dev-"
   }
 }
 
@@ -49,7 +49,7 @@ data "aws_route53_zone" "this" {
 
 resource "aws_route53_record" "api" {
   zone_id = data.aws_route53_zone.this.zone_id
-  name    = "${local.subdomain}-${var.name}"
+  name    = "${local.subdomain}${var.name}"
   type    = "A"
 
   alias {
@@ -65,5 +65,5 @@ module "acm" {
 
   domain_name               = local.domain_name
   zone_id                   = data.aws_route53_zone.this.id
-  subject_alternative_names = ["${local.subdomain}-${var.name}.${local.domain_name}"]
+  subject_alternative_names = ["${local.subdomain}${var.name}.${local.domain_name}"]
 }
