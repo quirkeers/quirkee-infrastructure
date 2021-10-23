@@ -12,6 +12,13 @@ variable "cognito_admin_user_pool_endpoint_map" {
   }
 }
 
+variable "cognito_admin_jwt_token_aud_map" {
+  default = {
+    "development": "1g1srh0jvrlrtsob12f6p2l0en",
+    "production": "3pom6ukr3uitpsdvma95198nm4"
+  }
+}
+
 locals  {
   domain_name = "quirkee.net"
   subdomain = lookup(var.subdomain_map, var.env)
@@ -38,26 +45,34 @@ module "api_gateway" {
       lambda_arn             = var.lambda_arn
       payload_format_version = "1.0"
       timeout_milliseconds   = 12000
+      authorization_type     = "JWT"
+      authorizer_id          = aws_apigatewayv2_authorizer.admin_authorizer.id
     }
 
     "ANY /api/{proxy+}" = {
       lambda_arn             = var.lambda_arn
       payload_format_version = "1.0"
       timeout_milliseconds   = 12000
+      authorization_type     = "JWT"
+      authorizer_id          = aws_apigatewayv2_authorizer.admin_authorizer.id
     }
 
-    "$default" = { lambda_arn = var.lambda_arn }
+    "$default" = {
+      lambda_arn = var.lambda_arn
+      authorization_type     = "JWT"
+      authorizer_id          = aws_apigatewayv2_authorizer.admin_authorizer.id
+    }
   }
 }
 
-resource "aws_apigatewayv2_authorizer" "some_authorizer" {
+resource "aws_apigatewayv2_authorizer" "admin_authorizer" {
   api_id           = module.api_gateway.apigatewayv2_api_id
   authorizer_type  = "JWT"
   identity_sources = ["$request.header.Authorization"]
   name             = "${var.env}-${var.name}-gateway-authorizer"
 
   jwt_configuration {
-    audience = ["quirkee-admin"]
+    audience = [lookup(var.cognito_admin_jwt_token_aud_map, var.env)]
     issuer   = "https://${lookup(var.cognito_admin_user_pool_endpoint_map, var.env)}"
   }
 }
