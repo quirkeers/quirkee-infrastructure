@@ -5,6 +5,13 @@ variable "subdomain_map" {
   }
 }
 
+variable "cognito_admin_user_pool_endpoint_map" {
+  default = {
+    "development": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_pCbZCYiRO",
+    "production": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_vXpswC2rb"
+  }
+}
+
 locals  {
   domain_name = "quirkee.net"
   subdomain = lookup(var.subdomain_map, var.env)
@@ -39,7 +46,19 @@ module "api_gateway" {
       timeout_milliseconds   = 12000
     }
 
-"$default" = { lambda_arn = var.lambda_arn }
+    "$default" = { lambda_arn = var.lambda_arn }
+  }
+}
+
+resource "aws_apigatewayv2_authorizer" "some_authorizer" {
+  api_id           = module.api_gateway.apigatewayv2_api_id
+  authorizer_type  = "JWT"
+  identity_sources = ["$request.header.Authorization"]
+  name             = "${var.env}-${var.name}-gateway-authorizer"
+
+  jwt_configuration {
+    audience = ["quirkee-admin"]
+    issuer   = "https://${lookup(var.cognito_admin_user_pool_endpoint_map, var.env)}"
   }
 }
 
