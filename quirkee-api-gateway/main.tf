@@ -19,18 +19,6 @@ variable "cognito_admin_jwt_token_aud_map" {
   }
 }
 
-variable "cors_allow_origins_list_map" {
-  default = {
-    "development": [
-      "^(https:|http:|www\\.)\\S*.quirkee.net",
-      "http://localhost:[0-9]*"
-    ],
-    "production": [
-      "^(https:|http:|www\\.)\\S*.quirkee.net",
-    ]
-  }
-}
-
 locals  {
   domain_name = "quirkee.net"
   subdomain = lookup(var.subdomain_map, var.env)
@@ -45,7 +33,7 @@ module "api_gateway" {
   cors_configuration = {
     allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent"]
     allow_methods = ["*"]
-    allow_origins = lookup(var.cors_allow_origins_list_map, var.env)
+    allow_origins = ["*"]
   }
 
   domain_name = "${local.subdomain}${var.name}.${local.domain_name}"
