@@ -33,7 +33,11 @@ module "api_gateway" {
   cors_configuration = {
     allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent"]
     allow_methods = ["*"]
-    allow_origins = ["*"]
+    allow_origins = [
+        "https://quirkee.net",
+        "https://admin.quirkee.net",
+        "https://dev-admin.quirkee.net",
+]
     allow_credentials = "true"
   }
 
