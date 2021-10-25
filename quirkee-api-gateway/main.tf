@@ -31,7 +31,7 @@ module "api_gateway" {
   protocol_type = "HTTP"
 
   cors_configuration = {
-    allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent", "x-requested-with"]
+    allow_headers = ["Content-Type","Accept","Authorization","Origin"]
     allow_methods = ["*"]
     allow_origins = [
         "https://quirkee.net",
@@ -54,12 +54,26 @@ module "api_gateway" {
       authorizer_id          = aws_apigatewayv2_authorizer.admin_authorizer.id
     }
 
-    "ANY /api/{proxy+}" = {
+    "GET /{proxy+}" = {
       lambda_arn             = var.lambda_arn
       payload_format_version = "1.0"
       timeout_milliseconds   = 12000
       authorization_type     = "JWT"
       authorizer_id          = aws_apigatewayv2_authorizer.admin_authorizer.id
+    }
+
+    "POST /{proxy+}" = {
+      lambda_arn             = var.lambda_arn
+      payload_format_version = "1.0"
+      timeout_milliseconds   = 12000
+      authorization_type     = "JWT"
+      authorizer_id          = aws_apigatewayv2_authorizer.admin_authorizer.id
+    }
+
+    "OPTIONS /{proxy+}" = {
+      lambda_arn             = var.lambda_arn
+      payload_format_version = "1.0"
+      timeout_milliseconds   = 12000
     }
 
     "$default" = {
