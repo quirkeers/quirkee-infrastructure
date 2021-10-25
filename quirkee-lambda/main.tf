@@ -25,9 +25,9 @@ module "lambda_function" {
   store_on_s3 = true
   s3_bucket = var.s3_bucket
 
-//  layers = [
-//    module.lambda_layer_s3.lambda_layer_arn,
-//  ]
+  # max
+  memory_size = 2048
+  timeout = 60
 
   allowed_triggers = {
     AllowExecutionFromAPIGateway = {
@@ -36,18 +36,3 @@ module "lambda_function" {
     }
   }
 }
-
-//module "lambda_layer_s3" {
-//  source = "terraform-aws-modules/lambda/aws"
-//
-//  create_layer = true
-//
-//  layer_name          = "${var.env}-${var.name}-layer"
-//  description         = "${var.env}-${var.name}'s common layer"
-//  compatible_runtimes = ["nodejs14.x"]
-//
-//  source_path = var.node_project_path
-//
-//  store_on_s3 = true
-//  s3_bucket   = var.s3_bucket
-//}
