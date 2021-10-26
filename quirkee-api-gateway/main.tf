@@ -58,7 +58,39 @@ module "api_gateway" {
       timeout_milliseconds   = 12000
     }
 
-    "ANY /api/{proxy+}" = {
+    "GET /api/{proxy+}" = {
+      lambda_arn             = var.lambda_arn
+      payload_format_version = "1.0"
+      timeout_milliseconds   = 12000
+      authorization_type     = "JWT"
+      authorizer_id          = aws_apigatewayv2_authorizer.admin_authorizer.id
+    }
+
+    "POST /api/{proxy+}" = {
+      lambda_arn             = var.lambda_arn
+      payload_format_version = "1.0"
+      timeout_milliseconds   = 12000
+      authorization_type     = "JWT"
+      authorizer_id          = aws_apigatewayv2_authorizer.admin_authorizer.id
+    }
+
+    "PUT /api/{proxy+}" = {
+      lambda_arn             = var.lambda_arn
+      payload_format_version = "1.0"
+      timeout_milliseconds   = 12000
+      authorization_type     = "JWT"
+      authorizer_id          = aws_apigatewayv2_authorizer.admin_authorizer.id
+    }
+
+    "PATCH /api/{proxy+}" = {
+      lambda_arn             = var.lambda_arn
+      payload_format_version = "1.0"
+      timeout_milliseconds   = 12000
+      authorization_type     = "JWT"
+      authorizer_id          = aws_apigatewayv2_authorizer.admin_authorizer.id
+    }
+
+    "DELETE /api/{proxy+}" = {
       lambda_arn             = var.lambda_arn
       payload_format_version = "1.0"
       timeout_milliseconds   = 12000
