@@ -17,6 +17,10 @@ module "quirkee_lambda" {
   handler_path = var.handler_path
   node_project_path = var.node_project_path
   s3_bucket = module.quirkee_lambda_s3_bucket.app_bucket_id
+
+  attach_policy_jsons = var.attach_policy_jsons
+  policy_jsons = var.policy_jsons
+  number_of_policy_jsons =  var.number_of_policy_jsons
 }
 
 module "quirkee_lambda_s3_bucket" {

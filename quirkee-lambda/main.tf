@@ -25,6 +25,10 @@ module "lambda_function" {
   store_on_s3 = true
   s3_bucket = var.s3_bucket
 
+  attach_policy_json = var.attach_policy_jsons
+  policy_json        = var.policy_jsons
+  number_of_policy_jsons = var.number_of_policy_jsons
+
   # max
   memory_size = 2048
   timeout = 60
