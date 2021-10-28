@@ -33,6 +33,10 @@ module "lambda_function" {
   memory_size = 2048
   timeout = 60
 
+  environment_variables = {
+    APP_ENV = var.env
+  }
+
   allowed_triggers = {
     AllowExecutionFromAPIGateway = {
       service    = "apigateway"
