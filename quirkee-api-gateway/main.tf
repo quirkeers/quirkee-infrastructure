@@ -1,3 +1,7 @@
+locals {
+  authorizer_key: "${var.authorizer_type}_${var.env}"
+}
+
 variable "subdomain_map" {
   default = {
     "production": "",
@@ -5,17 +9,26 @@ variable "subdomain_map" {
   }
 }
 
-variable "cognito_admin_user_pool_endpoint_map" {
+variable "cognito_user_pool_endpoint_map" {
   default = {
-    "development": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_pCbZCYiRO",
-    "production": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_vXpswC2rb"
+    "admin_development": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_pCbZCYiRO",
+    "admin_production": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_vXpswC2rb"
+    "customer_development": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_3stpZksQE",
+    "customer_production": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_g3qLCyS2G"
+    "svc2svc_development": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_tgCHXqbQv",
+    "svc2svc_production": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_LiNmIglhY"
   }
 }
 
-variable "cognito_admin_jwt_token_aud_map" {
+
+variable "cognito_jwt_token_aud_map" {
   default = {
-    "development": "1g1srh0jvrlrtsob12f6p2l0en",
-    "production": "3pom6ukr3uitpsdvma95198nm4"
+    "admin_development": "1g1srh0jvrlrtsob12f6p2l0en",
+    "admin_production": "3pom6ukr3uitpsdvma95198nm4"
+    "customer_development": "6ofb0j17okkl62vkk2mjrhaejr",
+    "customer_production": "54k7aiilagmsciqk84lmjko46h"
+    "svc2svc_development": "n9rdkthcdijf1cua4vctikj4h",
+    "svc2svc_production": "4a0i0qqd4q0rid2s52vkfdv35t"
   }
 }
 
@@ -113,8 +126,8 @@ resource "aws_apigatewayv2_authorizer" "admin_authorizer" {
   name             = "${var.env}-${var.name}-gateway-authorizer"
 
   jwt_configuration {
-    audience = [lookup(var.cognito_admin_jwt_token_aud_map, var.env)]
-    issuer   = "https://${lookup(var.cognito_admin_user_pool_endpoint_map, var.env)}"
+    audience = [lookup(var.cognito_jwt_token_aud_map, local.authorizer_key)]
+    issuer   = "https://${lookup(var.cognito_user_pool_endpoint_map, local.authorizer_key)}"
   }
 }
 
@@ -142,3 +155,4 @@ module "acm" {
   zone_id                   = data.aws_route53_zone.this.id
   subject_alternative_names = ["${local.subdomain}${var.name}.${local.domain_name}"]
 }
+

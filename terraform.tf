@@ -3,6 +3,7 @@ module "quirkee_api_gateway" {
 
   env = var.env
   name = var.name
+  authorizer_type = var.authorizer_type
   lambda_arn = module.quirkee_lambda.lambda_arn
 }
 

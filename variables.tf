@@ -11,3 +11,7 @@ variable "policy_jsons" {
 variable "number_of_policy_jsons" {
   default = 0
 }
+
+variable "authorizer_type" {
+  default = "customer"
+}
