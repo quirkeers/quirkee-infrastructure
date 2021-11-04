@@ -1,5 +1,5 @@
 locals {
-  authorizer_key: "${var.authorizer_type}_${var.env}"
+  authorizer_key = "${var.authorizer_type}_${var.env}"
 }
 
 variable "subdomain_map" {
