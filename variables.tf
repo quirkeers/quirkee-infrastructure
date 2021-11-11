@@ -17,6 +17,12 @@ variable "authorizer_type" {
   default = "customer"
 }
 
-variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_URI" {}
-variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_ID" {}
-variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_SECRET" {}
+variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_URI" {
+  default = ""
+}
+variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_ID" {
+  default = ""
+}
+variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_SECRET" {
+  default = ""
+}
