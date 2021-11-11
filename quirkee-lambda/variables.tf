@@ -16,3 +16,8 @@ variable "policy_jsons" {
 variable "number_of_policy_jsons" {
   default = 0
 }
+
+
+variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_URI" {}
+variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_ID" {}
+variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_SECRET" {}
