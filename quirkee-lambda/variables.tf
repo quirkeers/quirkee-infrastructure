@@ -21,3 +21,6 @@ variable "number_of_policy_jsons" {
 variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_URI" {}
 variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_ID" {}
 variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_SECRET" {}
+
+variable "AWS_S3_ACCESS_KEY" {}
+variable "AWS_S3_KEY_SECRET" {}

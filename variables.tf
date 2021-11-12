@@ -26,3 +26,11 @@ variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_ID" {
 variable "SERVICE_TO_SERVICE_OAUTH_CLIENT_SECRET" {
   default = ""
 }
+
+variable "AWS_S3_ACCESS_KEY" {
+  default = ""
+}
+
+variable "AWS_S3_KEY_SECRET" {
+  default = ""
+}
