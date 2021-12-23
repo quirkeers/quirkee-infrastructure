@@ -11,7 +11,7 @@ variable "subdomain_map" {
 
 variable "cognito_user_pool_endpoint_map" {
   default = {
-    "admin_development": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_pCbZCYiRO",
+    "admin_development": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_wGP9bWGkV",
     "admin_production": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_vXpswC2rb"
     "customer_development": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_4O4vCBD2c",
     "customer_production": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_g3qLCyS2G"
@@ -23,7 +23,7 @@ variable "cognito_user_pool_endpoint_map" {
 
 variable "cognito_jwt_token_aud_map" {
   default = {
-    "admin_development": "1g1srh0jvrlrtsob12f6p2l0en",
+    "admin_development": "3m84qllil2va094t97ti9b9ta7",
     "admin_production": "3pom6ukr3uitpsdvma95198nm4"
     "customer_development": "18vtg0h3opkkclhvr1ijaq1ipb",
     "customer_production": "54k7aiilagmsciqk84lmjko46h"
